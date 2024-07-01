@@ -32,7 +32,7 @@ const Home: React.FC = () => {
             </Typography>
           </Grid>
         </Grid>
-        <Box mt={4}>
+        <Box mt={6}>
           <Carousel />
         </Box>
       </Box>
