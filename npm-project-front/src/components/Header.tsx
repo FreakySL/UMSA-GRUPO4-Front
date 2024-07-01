@@ -3,20 +3,23 @@ import { AppBar, Toolbar, Typography, Link, Container, Box, Avatar } from '@mui/
 import { deepOrange } from '@mui/material/colors';
 import { useTheme } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
+import { auth } from '../firebase.ts';
 
 const Header: React.FC = () => {
   const theme = useTheme();
   const navigate = useNavigate();
 
-  // Simulamos si el usuario está logueado
-  const isLoggedIn = false; // Cambia esto a `true` para simular un usuario logueado
-  const userProfileImage = isLoggedIn ? '/path-to-user-profile-image.jpg' : null;
+  const isLoggedIn = !!auth.currentUser;
+  const userProfileImage = auth.currentUser?.photoURL;
 
-  const handleAvatarClick = () => {
+  console.log(auth.currentUser)
+  console.log(auth.currentUser?.displayName?.charAt(0))
+
+  const handleNav = (path: string) => {
     if (!isLoggedIn) {
       navigate('/login');
     } else {
-      navigate('/profile');
+      navigate(path);
     }
   };
 
@@ -32,22 +35,23 @@ const Header: React.FC = () => {
             </Typography>
             <Box display="flex" alignItems="center">
               <nav>
-                <Link href="/agendar-turno" color="inherit" underline="none" sx={{ ml: 2, color: '#fff', mr: 2 }}>
+                <Link onClick={() => handleNav('/appointments')} color="inherit" underline="none" sx={{ ml: 2, color: '#fff', mr: 2 }}>
                   Agendar Turno
                 </Link>
-                <Link href="/" color="inherit" underline="none" sx={{ ml: 2, color: '#fff', mr: 2 }}>
+                <Link onClick={() => navigate('/specialists')} color="inherit" underline="none" sx={{ ml: 2, color: '#fff', mr: 2 }}>
                   Nuestros especialistas médicos
                 </Link>
-                <Link href="/" color="inherit" underline="none" sx={{ ml: 2, color: '#fff', mr: 2 }}>
+                <Link onClick={() => navigate('/about')} color="inherit" underline="none" sx={{ ml: 2, color: '#fff', mr: 2 }}>
                   Nosotros
                 </Link>
               </nav>
-              <Avatar 
-                sx={{ bgcolor: deepOrange[500], ml: 2, cursor: 'pointer' }} 
+              <Avatar
+                src={userProfileImage || undefined}
+                sx={{ bgcolor: deepOrange[500], ml: 2, cursor: 'pointer' }}
                 alt="Profile"
-                onClick={handleAvatarClick}
+                onClick={() => handleNav('/profile')}
               >
-                {!userProfileImage && 'P'}
+                {!userProfileImage && auth.currentUser?.displayName?.charAt(0)}
               </Avatar>
             </Box>
           </Box>
