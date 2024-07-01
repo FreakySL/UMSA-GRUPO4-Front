@@ -32,7 +32,7 @@ const Header: React.FC = () => {
             </Typography>
             <Box display="flex" alignItems="center">
               <nav>
-                <Link href="/" color="inherit" underline="none" sx={{ ml: 2, color: '#fff', mr: 2 }}>
+                <Link href="/agendar-turno" color="inherit" underline="none" sx={{ ml: 2, color: '#fff', mr: 2 }}>
                   Agendar Turno
                 </Link>
                 <Link href="/" color="inherit" underline="none" sx={{ ml: 2, color: '#fff', mr: 2 }}>
