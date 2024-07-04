@@ -5,7 +5,7 @@ import DocList from "../pages/DocList";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
-import { SearchAppointment } from "../pages/SearchAppointment";
+import UpdateAppointmentPage from "../pages/UpdateAppointmentPage";
 
 function RouterSelector() {
   return (
@@ -14,7 +14,7 @@ function RouterSelector() {
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/agendar-turno" element={<CreateAppointmentForm />} />
-      <Route path="/buscar-turno" element={<SearchAppointment />} />
+      <Route path="/actualizar-turno" element={<UpdateAppointmentPage />} />
       <Route path="/consultar-doctores" element={<DocList />} />
       <Route path="*" element={<AppointementForm />} />
     </Routes>

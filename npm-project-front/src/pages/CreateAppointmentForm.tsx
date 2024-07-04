@@ -14,8 +14,9 @@ import "./pages.module.css"
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
-import dayjs, { Dayjs } from 'dayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs, { Dayjs } from 'dayjs';
+
 
 const CreateAppointmentForm: React.FC = () => {
   const [name, setName] = useState<string>('');
@@ -40,9 +41,9 @@ const CreateAppointmentForm: React.FC = () => {
   };
 
   return (
-    <div className='form-container' style={{marginTop : "40px"}}>
+    <div className='form-container'>
        <form onSubmit={handleSubmit}>
-        <Grid container spacing={2} justifyContent="center" alignItems="center">
+        <Grid sx={{mt:2}} container spacing={2} justifyContent="center" alignItems="center">
           <Grid item xs={4}>
             <TextField
               label="Nombre del paciente"

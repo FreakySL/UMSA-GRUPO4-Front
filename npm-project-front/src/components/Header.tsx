@@ -41,7 +41,7 @@ const Header: React.FC = () => {
                     Agendar Turno
                   </Button>
                 </Link>
-                <Link onClick={() => navigate('/buscar-turno')} color="inherit" underline="none" sx={{ ml: 2, color: '#fff', mr: 2 }}>
+                <Link onClick={() => navigate('/actualizar-turno')} color="inherit" underline="none" sx={{ ml: 2, color: '#fff', mr: 2 }}>
                   <Button color='inherit'>
                     Modificar / Eliminar Turno
                   </Button>

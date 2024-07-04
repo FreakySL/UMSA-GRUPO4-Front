@@ -1,4 +1,4 @@
-import { ConsultationHours } from "./ConsultationHours";
+import { ConsultationHours } from "./ConsultationHours.type";
 
 export interface MedicSpecialist {
     name : string;

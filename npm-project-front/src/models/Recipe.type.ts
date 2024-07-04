@@ -1,4 +1,4 @@
-import { Appointment } from "./Appointment";
+import { Appointment } from "./Appointment.type";
 
 export interface Recipes {
     date : Date;

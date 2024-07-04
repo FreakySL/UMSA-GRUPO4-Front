@@ -1,5 +1,5 @@
-import { MedicSpecialist } from "./MedicSpecialist";
-import { Recipes } from "./Recipe";
+import { MedicSpecialist } from "./MedicSpecialist.type";
+import { Recipes } from "./Recipe.type";
 
 export interface Appointment {
     pacientName : string;
