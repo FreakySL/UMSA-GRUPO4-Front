@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
   TextField,
   Button,
@@ -8,60 +8,60 @@ import {
   InputLabel,
   Select,
   SelectChangeEvent,
+  Typography,
 } from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import dayjs, { Dayjs } from 'dayjs';
-
-interface Appointment {
-  id: string;
-  name: string;
-  date: Date;
-  doctor: string;
-  reason: string;
-}
+import { Appointment } from '../models/Appointment.type';
 
 interface UpdateAppointmentFormProps {
   appointment: Appointment;
   onUpdate: (updatedAppointment: Appointment) => void;
 }
 
-
 const UpdateAppointmentForm: React.FC<UpdateAppointmentFormProps> = ({ appointment, onUpdate }) => {
-  const [name, setName] = useState<string>(appointment.name);
-  const [date, setDate] = useState<Date | null>(appointment.date);
-  const [doctor, setDoctor] = useState<string>(appointment.doctor);
-  const [reason, setReason] = useState<string>(appointment.reason);
+  const [pacientName, setPacientName] = useState<string>(appointment.pacientName);
+  const [date, setDate] = useState<Dayjs | null>(appointment.date);
+  const [startTime, setStartTime] = useState<Dayjs | null>(appointment.startTime);
+  const [endTime, setEndTime] = useState<Dayjs | null>(appointment.endTime);
+  const [consultation, setConsultation] = useState<string>(appointment.consultation);
+  const [medicSpecialist, setMedicSpecialist] = useState<string>(appointment.medicSpecialist.name); // Asumiendo que `medicSpecialist` tiene una propiedad `name`
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     const updatedAppointment: Appointment = {
-      id: appointment.id,
-      name,
-      date: date!,
-      doctor,
-      reason,
+      ...appointment,
+      pacientName,
+      date,
+      startTime,
+      endTime,
+      consultation,
+      medicSpecialist: { ...appointment.medicSpecialist, name: medicSpecialist }, // Actualiza solo el nombre del especialista
+      recipes: appointment.recipes, // Mantén las recetas como están
     };
     onUpdate(updatedAppointment);
   };
 
-  const handleDoctorChange = (event: SelectChangeEvent<string>) => {
-    setDoctor(event.target.value as string);
+  const handleMedicSpecialistChange = (event: SelectChangeEvent<string>) => {
+    setMedicSpecialist(event.target.value as string);
   };
 
   return (
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <div style={{ marginTop: '80px' }}>
+    <div style={{ marginTop: '80px' }}>
         <form onSubmit={handleSubmit}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
                 label="Nombre del paciente"
                 fullWidth
-                value={name}
-                onChange={(e) => setName(e.target.value)}
+                value={pacientName}
+                InputProps={{
+                  readOnly: true,
+                }}
+                
               />
             </Grid>
             {/* <Grid item xs={12}>
@@ -76,8 +76,8 @@ const UpdateAppointmentForm: React.FC<UpdateAppointmentFormProps> = ({ appointme
               <FormControl fullWidth>
                 <InputLabel>Medico especialista</InputLabel>
                 <Select
-                  value={doctor}
-                  onChange={handleDoctorChange}
+                  value={medicSpecialist}
+                  onChange={handleMedicSpecialistChange}
                 >
                   <MenuItem value="Dr. Pérez">Dr. Pérez</MenuItem>
                   <MenuItem value="Dr. García">Dr. García</MenuItem>
@@ -90,10 +90,45 @@ const UpdateAppointmentForm: React.FC<UpdateAppointmentFormProps> = ({ appointme
               <TextField
                 label="Motivo de la consulta"
                 fullWidth
-                value={reason}
-                onChange={(e) => setReason(e.target.value)}
+                value={consultation}
+                onChange={(e) => setConsultation(e.target.value)}
               />
             </Grid>
+            <Grid item xs container direction="row" justifyContent="center" alignItems="center">
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <Grid spacing={3} sx={{ minWidth: 305 }}>
+                    <Typography color={'black'}>
+                        Fecha
+                    </Typography>
+                    <DatePicker
+                    value={date}
+                    onChange={setDate}
+                    defaultValue={dayjs()}
+                    views={['year', 'month', 'day']}
+                    />
+                </Grid>
+                <Grid spacing={3} sx={{ minWidth: 305 }}>
+                    <Typography color={'black'}>
+                        Horario Inicial
+                    </Typography>
+                    <TimePicker
+                        value={startTime}
+                        onChange={setStartTime}
+                        referenceDate={dayjs('2022-04-17')}
+                    />
+                </Grid>
+                <Grid spacing={3} sx={{ minWidth: 305 }}>
+                    <Typography color={'black'}>
+                        Horario de salida
+                    </Typography>
+                    <TimePicker
+                        value={startTime}
+                        onChange={setEndTime}
+                        referenceDate={dayjs('2022-04-17')}
+                    />
+                </Grid>
+            </LocalizationProvider>
+          </Grid>
             <Grid item xs={12}>
               <Button type="submit" variant="contained" color="primary" fullWidth>
                 Actualizar Turno
@@ -102,7 +137,6 @@ const UpdateAppointmentForm: React.FC<UpdateAppointmentFormProps> = ({ appointme
           </Grid>
         </form>
       </div>
-    </LocalizationProvider>
   );
 };
 

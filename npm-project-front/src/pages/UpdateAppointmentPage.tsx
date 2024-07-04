@@ -1,32 +1,45 @@
 import React, { useState, useEffect } from 'react';
 import UpdateAppointmentForm from './UpdateAppointmentForm';
+import useUpdateAppointment from '../hooks/useUpdateAppointment';
+import { Appointment } from '../models/Appointment.type';
+import { ConsultationHours } from '../models/ConsultationHours.type';
+import dayjs from "dayjs";
 
-const mockAppointment = {
-  id: '123',
-  name: 'Juan Pérez',
-  date: new Date(),
-  doctor: 'Dr. García',
-  reason: 'Consulta general',
+
+const mockAppointment: Appointment = {
+  id: 123,
+  pacientName: 'Juan Pérez',
+  date: dayjs('2024-07-01T10:00:00'),
+  startTime: dayjs('2024-07-01T10:00:00'),
+  endTime: dayjs('2024-07-01T11:00:00'),
+  consultation: 'Consulta general',
+  state: 'Pendiente',
+  medicSpecialist: {
+    id: 1,
+    name: 'Dr. García',
+    medicalSpeciality: 'General',
+    consultationLocation: 'Consultorio 101',
+    consultationHours: []
+  },
+  recipes: []
 };
-interface Appointment {
-    id: string;
-    name: string;
-    date: Date;
-    doctor: string;
-    reason: string;
-  }
-  
-const UpdateAppointmentPage: React.FC = () => {
+
+const UpdateAppointmentPage: React.FC<{ appointmentId: number }> = ({ appointmentId }) => {
+  const { getAppointmentById, updateAppointment } = useUpdateAppointment();
   const [appointment, setAppointment] = useState<Appointment | null>(null);
 
   useEffect(() => {
-    // Simulando la carga de datos desde una API
-    setAppointment(mockAppointment);
-  }, []);
+
+    
+    setAppointment(mockAppointment)
+    /* const foundAppointment = getAppointmentById(appointmentId);
+    if (foundAppointment) {
+      setAppointment(foundAppointment);
+    } */
+  }, [getAppointmentById, appointmentId]);
 
   const handleUpdate = (updatedAppointment: Appointment) => {
-    // Aquí puedes manejar la lógica para actualizar el turno en tu backend
-    console.log('Updated appointment:', updatedAppointment);
+    updateAppointment(updatedAppointment);
   };
 
   return (

@@ -1,11 +1,13 @@
 import { MedicSpecialist } from "./MedicSpecialist.type";
 import { Recipes } from "./Recipe.type";
+import { Dayjs } from 'dayjs';
 
 export interface Appointment {
+    id : number;
     pacientName : string;
-    date : Date;
-    startTime : Date;
-    endTime : Date;
+    date : Dayjs | null;
+    startTime : Dayjs | null;
+    endTime : Dayjs | null;
     consultation : string;
     state : string;
     medicSpecialist : MedicSpecialist;

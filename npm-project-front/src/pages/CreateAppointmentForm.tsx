@@ -24,6 +24,7 @@ const CreateAppointmentForm: React.FC = () => {
   const [doctor, setDoctor] = useState<string>('');
   const [reason, setReason] = useState<string>('');
   const [startTime, setStartTime] = React.useState<Dayjs | null>(null);
+  const [endTime, setEndTime] = React.useState<Dayjs | null>(null);
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
@@ -99,12 +100,12 @@ const CreateAppointmentForm: React.FC = () => {
                 </Grid>
                 <Grid spacing={3} sx={{ minWidth: 305 }}>
                     <Typography color={'black'}>
-                        Horario de salida
+                        Horario de salida {" Hora: " }
                     </Typography>
                     <TimePicker
-                        value={startTime}
-                        onChange={setStartTime}
-                        referenceDate={dayjs('2022-04-17')}
+                        value={endTime}
+                        onChange={setEndTime}
+                        defaultValue={dayjs()}
                     />
                 </Grid>
             </LocalizationProvider>

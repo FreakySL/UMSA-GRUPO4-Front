@@ -6,15 +6,18 @@ import Header from './components/Header'
 import RouterSelector from './routes/Router'
 import Login from './pages/Login'
 import Register from './pages/Register'
+import { AlMedinProvider } from './context/AlMedinContext'
 
 function App() {
 
   return (
 
     <Router>
-     <Header />
-     <RouterSelector/>
-     <Footer />
+      <AlMedinProvider>
+        <Header />
+        <RouterSelector/>
+        <Footer />
+      </AlMedinProvider>
    </Router>
   )
 }
