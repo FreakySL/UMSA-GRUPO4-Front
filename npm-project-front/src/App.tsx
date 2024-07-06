@@ -3,22 +3,28 @@ import './App.css'
 import Footer from './components/Footer'
 import Home from './pages/Home'
 import Header from './components/Header'
-import RouterSelector from './routes/Router'
 import Login from './pages/Login'
 import Register from './pages/Register'
-import { AlMedinProvider } from './context/AlMedinContext'
+import MedicSpecialists from './pages/MedicSpecialists'
+import { Suspense } from 'react'
 
 function App() {
 
   return (
-
     <Router>
-      <AlMedinProvider>
-        <Header />
-        <RouterSelector/>
-        <Footer />
-      </AlMedinProvider>
-   </Router>
+    <Header />
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+      <Route path="/medicSpecialists" element={
+          <Suspense fallback={<div>Loading...</div>}>
+            <MedicSpecialists></MedicSpecialists>
+          </Suspense>
+        } />
+    </Routes>
+    <Footer />
+  </Router>
   )
 }
 
