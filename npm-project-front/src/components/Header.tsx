@@ -10,6 +10,7 @@ const Header: React.FC = () => {
   const navigate = useNavigate();
 
   const isLoggedIn = !!auth.currentUser;
+  console.log(!!auth.currentUser);
   const userProfileImage = auth.currentUser?.photoURL;
 
   console.log(auth.currentUser)
@@ -38,7 +39,7 @@ const Header: React.FC = () => {
                 <Link onClick={() => handleNav('/appointments')} color="inherit" underline="none" sx={{ ml: 2, color: '#fff', mr: 2 }}>
                   Agendar Turno
                 </Link>
-                <Link onClick={() => navigate('/specialists')} color="inherit" underline="none" sx={{ ml: 2, color: '#fff', mr: 2 }}>
+                <Link onClick={() => navigate('/medicSpecialists')} color="inherit" underline="none" sx={{ ml: 2, color: '#fff', mr: 2 }}>
                   Nuestros especialistas médicos
                 </Link>
                 <Link onClick={() => navigate('/about')} color="inherit" underline="none" sx={{ ml: 2, color: '#fff', mr: 2 }}>
