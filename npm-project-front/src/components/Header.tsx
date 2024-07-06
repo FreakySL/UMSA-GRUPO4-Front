@@ -1,5 +1,5 @@
 import React from 'react';
-import { AppBar, Toolbar, Typography, Link, Container, Box, Avatar } from '@mui/material';
+import { AppBar, Toolbar, Typography, Link, Container, Box, Avatar, Button } from '@mui/material';
 import { deepOrange } from '@mui/material/colors';
 import { useTheme } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
@@ -36,14 +36,24 @@ const Header: React.FC = () => {
             </Typography>
             <Box display="flex" alignItems="center">
               <nav>
-                <Link onClick={() => handleNav('/appointments')} color="inherit" underline="none" sx={{ ml: 2, color: '#fff', mr: 2 }}>
-                  Agendar Turno
+                {/* Add handleNav after testing the pages */}
+                <Link onClick={() => navigate('/agendar-turno')} color="inherit" underline="none" sx={{ ml: 2, color: '#fff', mr: 2 }}>
+                  <Button color='inherit'>
+                    Agendar Turno
+                  </Button>
+                </Link>
+                <Link onClick={() => navigate('/actualizar-turno')} color="inherit" underline="none" sx={{ ml: 2, color: '#fff', mr: 2 }}>
+                  <Button color='inherit'>
+                    Modificar / Eliminar Turno
+                  </Button>
                 </Link>
                 <Link onClick={() => navigate('/medicSpecialists')} color="inherit" underline="none" sx={{ ml: 2, color: '#fff', mr: 2 }}>
                   Nuestros especialistas médicos
                 </Link>
                 <Link onClick={() => navigate('/about')} color="inherit" underline="none" sx={{ ml: 2, color: '#fff', mr: 2 }}>
-                  Nosotros
+                  <Button color='inherit'>
+                    Nosotros
+                  </Button>
                 </Link>
               </nav>
               <Avatar

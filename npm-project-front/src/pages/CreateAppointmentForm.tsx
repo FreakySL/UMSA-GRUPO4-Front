@@ -14,8 +14,9 @@ import "./pages.module.css"
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
-import dayjs, { Dayjs } from 'dayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs, { Dayjs } from 'dayjs';
+
 
 const CreateAppointmentForm: React.FC = () => {
   const [name, setName] = useState<string>('');
@@ -23,6 +24,7 @@ const CreateAppointmentForm: React.FC = () => {
   const [doctor, setDoctor] = useState<string>('');
   const [reason, setReason] = useState<string>('');
   const [startTime, setStartTime] = React.useState<Dayjs | null>(null);
+  const [endTime, setEndTime] = React.useState<Dayjs | null>(null);
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
@@ -40,9 +42,9 @@ const CreateAppointmentForm: React.FC = () => {
   };
 
   return (
-    <div className='form-container' style={{marginTop : "40px"}}>
+    <div className='form-container'>
        <form onSubmit={handleSubmit}>
-        <Grid container spacing={2} justifyContent="center" alignItems="center">
+        <Grid sx={{mt:2}} container spacing={2} justifyContent="center" alignItems="center">
           <Grid item xs={4}>
             <TextField
               label="Nombre del paciente"
@@ -98,12 +100,12 @@ const CreateAppointmentForm: React.FC = () => {
                 </Grid>
                 <Grid spacing={3} sx={{ minWidth: 305 }}>
                     <Typography color={'black'}>
-                        Horario de salida
+                        Horario de salida {" Hora: " }
                     </Typography>
                     <TimePicker
-                        value={startTime}
-                        onChange={setStartTime}
-                        referenceDate={dayjs('2022-04-17')}
+                        value={endTime}
+                        onChange={setEndTime}
+                        defaultValue={dayjs()}
                     />
                 </Grid>
             </LocalizationProvider>

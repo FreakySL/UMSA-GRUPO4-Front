@@ -1,6 +1,7 @@
-import { ConsultationHours } from "./ConsultationHours";
+import { ConsultationHours } from "./ConsultationHours.type";
 
 export interface MedicSpecialist {
+    id : number;
     name : string;
     medicalSpeciality : string;
     consultationLocation : string;
