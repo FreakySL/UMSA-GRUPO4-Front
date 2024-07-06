@@ -23,7 +23,7 @@ interface UpdateAppointmentFormProps {
 }
 
 const UpdateAppointmentForm: React.FC<UpdateAppointmentFormProps> = ({ appointment, onUpdate }) => {
-  const [pacientName, setPacientName] = useState<string>(appointment.pacientName);
+  const [pacientName] = useState<string>(appointment.pacientName);
   const [date, setDate] = useState<Dayjs | null>(appointment.date);
   const [startTime, setStartTime] = useState<Dayjs | null>(appointment.startTime);
   const [endTime, setEndTime] = useState<Dayjs | null>(appointment.endTime);
@@ -50,31 +50,22 @@ const UpdateAppointmentForm: React.FC<UpdateAppointmentFormProps> = ({ appointme
   };
 
   return (
-    <div style={{ marginTop: '80px' }}>
+    <div style={{ marginTop: '40px' }}>
         <form onSubmit={handleSubmit}>
-          <Grid container spacing={2}>
+          <Grid container spacing={3} justifyContent="center" direction="column" alignContent="center">
             <Grid item xs={12}>
               <TextField
                 label="Nombre del paciente"
                 fullWidth
                 value={pacientName}
                 InputProps={{
-                  readOnly: true,
+                  disabled: true,
                 }}
-                
               />
             </Grid>
-            {/* <Grid item xs={12}>
-              <DateTimePicker
-                renderInput={(props) => <TextField {...props} fullWidth />}
-                label="Fecha y hora de la cita"
-                value={date}
-                onChange={(newValue) => setDate(newValue)}
-              />
-            </Grid> */}
             <Grid item xs={12}>
               <FormControl fullWidth>
-                <InputLabel>Medico especialista</InputLabel>
+                <InputLabel margin='dense' variant='standard' >Medico especialista</InputLabel>
                 <Select
                   value={medicSpecialist}
                   onChange={handleMedicSpecialistChange}
@@ -103,7 +94,7 @@ const UpdateAppointmentForm: React.FC<UpdateAppointmentFormProps> = ({ appointme
                     <DatePicker
                     value={date}
                     onChange={setDate}
-                    defaultValue={dayjs()}
+                    defaultValue={dayjs(date)}
                     views={['year', 'month', 'day']}
                     />
                 </Grid>
@@ -114,7 +105,7 @@ const UpdateAppointmentForm: React.FC<UpdateAppointmentFormProps> = ({ appointme
                     <TimePicker
                         value={startTime}
                         onChange={setStartTime}
-                        referenceDate={dayjs('2022-04-17')}
+                        referenceDate={dayjs(startTime)}
                     />
                 </Grid>
                 <Grid spacing={3} sx={{ minWidth: 305 }}>
@@ -122,9 +113,9 @@ const UpdateAppointmentForm: React.FC<UpdateAppointmentFormProps> = ({ appointme
                         Horario de salida
                     </Typography>
                     <TimePicker
-                        value={startTime}
+                        value={endTime}
                         onChange={setEndTime}
-                        referenceDate={dayjs('2022-04-17')}
+                        referenceDate={dayjs(endTime)}
                     />
                 </Grid>
             </LocalizationProvider>

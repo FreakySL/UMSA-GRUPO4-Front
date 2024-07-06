@@ -43,7 +43,7 @@ const Header: React.FC = () => {
                 </Link>
                 <Link onClick={() => navigate('/actualizar-turno')} color="inherit" underline="none" sx={{ ml: 2, color: '#fff', mr: 2 }}>
                   <Button color='inherit'>
-                    Modificar / Eliminar Turno
+                    Modificar Turno
                   </Button>
                 </Link>
                 {/* Add handleNav after testing the pages */}
