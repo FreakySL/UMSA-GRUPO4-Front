@@ -1,70 +1,26 @@
 import React from 'react';
-import { AppBar, Toolbar, Typography, Link, Container, Box, Avatar, Button } from '@mui/material';
-import { deepOrange } from '@mui/material/colors';
+import { AppBar, Toolbar, Typography, Link, Container, Box } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import { useNavigate } from 'react-router-dom';
-import { auth } from '../firebase.ts';
+import NavBar from './NavBar.tsx';
+import logo from '../assets/images/AlMedinLogo.png';
 
 const Header: React.FC = () => {
   const theme = useTheme();
-  const navigate = useNavigate();
-
-  const isLoggedIn = !!auth.currentUser;
-  console.log(!!auth.currentUser);
-  const userProfileImage = auth.currentUser?.photoURL;
-
-  console.log(auth.currentUser)
-  console.log(auth.currentUser?.displayName?.charAt(0))
-
-  const handleNav = (path: string) => {
-    if (!isLoggedIn) {
-      navigate('/login');
-    } else {
-      navigate(path);
-    }
-  };
 
   return (
     <AppBar position="static" sx={{ backgroundColor: theme.palette.primary.main, fontSize: '14px' }}>
       <Container maxWidth="lg">
         <Toolbar disableGutters>
           <Box display="flex" justifyContent="space-between" alignItems="center" width="100%">
-            <Typography variant="h6" component="div" sx={{ color: '#fff' }}>
-              <Link href="/" color="inherit" underline="none">
-                AlMedin
-              </Link>
-            </Typography>
             <Box display="flex" alignItems="center">
-              <nav>
-                {/* Add handleNav after testing the pages */}
-                <Link onClick={() => navigate('/agendar-turno')} color="inherit" underline="none" sx={{ ml: 2, color: '#fff', mr: 2 }}>
-                  <Button color='inherit'>
-                    Agendar Turno
-                  </Button>
+              <img src={logo} alt="Hospital Logo" style={{ width: '60px', height: 'auto', marginRight: '10px' }} />
+              <Typography variant="h6" component="div" sx={{ color: '#fff' }}>
+                <Link href="/" color="inherit" underline="none">
+                  AlMedin
                 </Link>
-                <Link onClick={() => navigate('/listado-turnos')} color="inherit" underline="none" sx={{ ml: 2, color: '#fff', mr: 2 }}>
-                  <Button color='inherit'>
-                    Lista turnos
-                  </Button>
-                </Link>
-                <Link onClick={() => navigate('/medicSpecialists')} color="inherit" underline="none" sx={{ ml: 2, color: '#fff', mr: 2 }}>
-                  Nuestros especialistas médicos
-                </Link>
-                <Link onClick={() => navigate('/about')} color="inherit" underline="none" sx={{ ml: 2, color: '#fff', mr: 2 }}>
-                  <Button color='inherit'>
-                    Nosotros
-                  </Button>
-                </Link>
-              </nav>
-              <Avatar
-                src={userProfileImage || undefined}
-                sx={{ bgcolor: deepOrange[500], ml: 2, cursor: 'pointer' }}
-                alt="Profile"
-                onClick={() => handleNav('/profile')}
-              >
-                {!userProfileImage && auth.currentUser?.displayName?.charAt(0)}
-              </Avatar>
+              </Typography>
             </Box>
+            <NavBar />
           </Box>
         </Toolbar>
       </Container>
