@@ -3,11 +3,13 @@ import React, {
     useState,
     useContext,
     ReactNode,
+    useEffect,
 } from "react";
 import { Appointment } from "../models/Appointment.type";
 import { ConsultationHours } from "../models/ConsultationHours.type";
 import { MedicSpecialist } from "../models/MedicSpecialist.type";
 import { Recipes } from "../models/Recipe.type";
+
 
 type AlMedinContextType = {
     appointments: Appointment[];

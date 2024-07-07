@@ -29,6 +29,7 @@ const CreateAppointmentForm: React.FC = () => {
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     // Aquí puedes manejar la lógica para enviar los datos del formulario
+    
     console.log({
       name,
       date,

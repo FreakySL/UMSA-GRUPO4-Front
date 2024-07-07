@@ -7,24 +7,19 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import MedicSpecialists from './pages/MedicSpecialists'
 import { Suspense } from 'react'
+import { AlMedinProvider } from './context/AlMedinContext'
+import RouterSelector from './routes/Router'
 
 function App() {
 
   return (
     <Router>
-    <Header />
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
-      <Route path="/medicSpecialists" element={
-          <Suspense fallback={<div>Loading...</div>}>
-            <MedicSpecialists></MedicSpecialists>
-          </Suspense>
-        } />
-    </Routes>
-    <Footer />
-  </Router>
+      <AlMedinProvider>
+        <Header />
+        <RouterSelector/>
+        <Footer />
+      </AlMedinProvider>
+   </Router>
   )
 }
 
