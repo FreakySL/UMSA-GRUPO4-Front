@@ -1,21 +1,6 @@
 // src/api/medicSpecialistService.ts
+import { MedicSpecialist } from '../models/MedicSpecialist.type';
 import apiClient from './apiClient';
-
-export interface ConsultationHour {
-  id: number;
-  dayOfWeek: string;
-  startTime: string;
-  endTime: string;
-  medicSpecialistId: number | null;
-}
-
-export interface MedicSpecialist {
-  id: number;
-  name: string;
-  medicalSpecialty: string;
-  consultationLocation: string;
-  consultationHours: ConsultationHour[];
-}
 
 export const getMedicSpecialists = async (): Promise<MedicSpecialist[]> => {
   try {

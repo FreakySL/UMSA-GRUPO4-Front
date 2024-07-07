@@ -1,6 +1,7 @@
 // src/hooks/useMedicSpecialists.ts
 import { useState, useEffect } from 'react';
-import { getMedicSpecialists, MedicSpecialist } from '../api/medicSpecialistService';
+import { getMedicSpecialists } from '../api/medicSpecialistService';
+import { MedicSpecialist } from '../models/MedicSpecialist.type';
 
 const useMedicSpecialists = () => {
   const [specialists, setSpecialists] = useState<MedicSpecialist[]>([]);

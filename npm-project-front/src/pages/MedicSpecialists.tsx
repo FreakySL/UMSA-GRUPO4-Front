@@ -1,6 +1,6 @@
 // src/components/MedicSpecialists.tsx
 import React from 'react';
-import { Card, CardContent, Typography, CircularProgress, Grid, Container, List, ListItem } from '@mui/material';
+import { Card, CardContent, Typography, CircularProgress, Grid, Container, List, ListItem, CardMedia } from '@mui/material';
 import useMedicSpecialists from '../hooks/useMedicSpecialists';
 
 const MedicSpecialists: React.FC = () => {
@@ -11,38 +11,31 @@ const MedicSpecialists: React.FC = () => {
 
   return (
     <Container>
-      <Typography variant="h4" gutterBottom>
-        Nuestros Especialistas Médicos
-      </Typography>
-      <Grid container spacing={3}>
+      <Grid container spacing={3} marginTop={4} marginBottom={4} direction="column">
         {specialists.map((specialist) => (
-          <Grid item key={specialist.id} xs={12} sm={6} md={4}>
-            <Card>
-              <CardContent>
-                <Typography variant="h5">{specialist.name}</Typography>
-                <Typography variant="body2" color="textSecondary">
-                  Especialidad: {specialist.medicalSpecialty}
-                </Typography>
-                <Typography variant="body2" color="textSecondary">
-                  Ubicación: {specialist.consultationLocation}
-                </Typography>
-                <Typography variant="body2" color="textSecondary">
-                  Horarios de Consulta:
-                </Typography>
-                {specialist.consultationHours.length > 0 ? (
-                  <List>
-                    {specialist.consultationHours.map((hour) => (
-                      <ListItem key={hour.id}>
-                        {hour.dayOfWeek}: {hour.startTime} - {hour.endTime}
-                      </ListItem>
-                    ))}
-                  </List>
-                ) : (
-                  <Typography variant="body2" color="textSecondary">
-                    No disponible
-                  </Typography>
-                )}
-              </CardContent>
+          <Grid item key={specialist.id} xs={12}>
+            <Card elevation={3}>
+              <Grid container>
+                <Grid item xs={4}>
+                  <CardMedia
+                    component="img"
+                    height="160"
+                    image={`https://picsum.photos/50?random=${specialist.id}`}
+                    alt={specialist.name}
+                  />
+                </Grid>
+                <Grid item xs={8}>
+                  <CardContent>
+                    <Typography variant="h5" marginBottom={1}>{specialist.name}</Typography>
+                    <Typography variant="body2" marginBottom={1} color="textSecondary">
+                      Especialidad: {specialist.medicalSpecialty}
+                    </Typography>
+                    <Typography variant="body2" color="textSecondary">
+                      Ubicación: {specialist.consultationLocation}
+                    </Typography>
+                  </CardContent>
+                </Grid>
+              </Grid>
             </Card>
           </Grid>
         ))}
