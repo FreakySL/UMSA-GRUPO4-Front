@@ -8,6 +8,7 @@ import MedicSpecialists from "../pages/MedicSpecialists";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import Profile from "../pages/Profile";
+import MedicAppointments from "../pages/MedicAppointments";
 
 function RouterSelector() {
   return (
@@ -21,6 +22,7 @@ function RouterSelector() {
         <Route path="/actualizar-turno" element={<UpdateAppointmentPage appointmentId={0} />} />
         <Route path="/especialistas-medicos" element={<MedicSpecialists />} />
         <Route path="/perfil" element={<Profile />} />
+        <Route path="/turnos-medicos/:medicSpecialistId" element={<MedicAppointments />} />
       </Routes>
       <Footer />
     </>

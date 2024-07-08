@@ -11,7 +11,7 @@ const MedicSpecialists: React.FC = () => {
 
   return (
     <Container>
-      <Grid container spacing={3} marginTop={4} marginBottom={4} direction="column">
+      <Grid container spacing={3} marginTop={2} marginBottom={3} direction="column">
         {specialists.map((specialist) => (
           <Grid item key={specialist.id} xs={12}>
             <Card elevation={3}>
