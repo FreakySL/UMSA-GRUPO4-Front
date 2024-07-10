@@ -1,8 +1,8 @@
 import apiClient from './apiClient';
-import { Appointment } from '../models/Appointment.type';
+import { ShiftCast } from '../models/ShiftCast.type';
 
 
-export const createAppointment = async (appointment : Appointment): Promise<Appointment> => {
+export const createAppointment = async (appointment : ShiftCast): Promise<ShiftCast> => {
     try {
         const response = await apiClient.post("/Shift/Create" , appointment);
         return response.data;
@@ -13,9 +13,9 @@ export const createAppointment = async (appointment : Appointment): Promise<Appo
     
 }
 
-export const getAllAppointments = async (): Promise<Appointment[]> => {
+export const getAllAppointments = async (): Promise<ShiftCast[]> => {
     try {
-      const response = await apiClient.get<Appointment[]>('/Shift/GetAll');
+      const response = await apiClient.get<ShiftCast[]>('/Shift/GetAll');
       return response.data;
     } catch (error) {
       console.error('Error fetching appointments', error);
@@ -23,7 +23,7 @@ export const getAllAppointments = async (): Promise<Appointment[]> => {
     }
 };
   
-export const updateAppointment = async (id : number, appointment : Appointment) : Promise<Appointment> => {
+export const updateAppointment = async (id : number, appointment : ShiftCast) : Promise<ShiftCast> => {
     try{
         const response = await apiClient.put(`/Shift/Update/${id}`, appointment);
         return response.data;
@@ -33,7 +33,7 @@ export const updateAppointment = async (id : number, appointment : Appointment) 
     }
 };
 
-export const updateAppointmentState = async (id : number, state : string) : Promise<Appointment> => {
+export const updateAppointmentState = async (id : number, state : string) : Promise<ShiftCast> => {
     try{
         const response = await apiClient.put(`/Shift/Update/${id}/${state}`);
         return response.data;

@@ -24,7 +24,7 @@ const NavBar: React.FC = () => {
         <Button color='inherit' onClick={() => handleNav('/agendar-turno')}>
           Agendar Turno
         </Button>
-        <Button color='inherit' onClick={() => handleNav('/actualizar-turno')}>
+        <Button color='inherit' onClick={() => handleNav('/lista-turnos')}>
           Modificar Turno
         </Button>
         <Button color='inherit' onClick={() => navigate('/especialistas-medicos')}>

@@ -4,17 +4,22 @@ import { Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRo
 import useAppointments from '../hooks/useAppointment';
 import { Appointment } from '../models/Appointment.type';
 import dayjs, { Dayjs } from 'dayjs';
-import { getMedicSpecialists } from "../api/medicSpecialistService";
+import useMedicSpecialists from '../hooks/useMedicSpecialists';
+import MedicSpecialists from './MedicSpecialists';
+import { ShiftCast } from '../models/ShiftCast.type';
 import { MedicSpecialist } from '../models/MedicSpecialist.type';
-import { useState } from 'react';
-import { SetStateAction} from 'react';
 
 
 const AppointmentsMenu: React.FC = () => {
-  const { appointments, loading, removeAppointment } = useAppointments();
+  const { appointments, loading, error, removeAppointment } = useAppointments();
   const navigate = useNavigate();
+  const {specialists} = useMedicSpecialists();
 
-  const handleEdit = (appointment : Appointment) => {
+  if (loading) return <CircularProgress />;
+  if (error) return <Typography color="error">Error: {error.message}</Typography>;
+  
+  
+  const handleEdit = (appointment : ShiftCast) => {
     navigate(`/appointments/edit/${appointment.id}`);
   };
 
@@ -23,6 +28,12 @@ const AppointmentsMenu: React.FC = () => {
       await removeAppointment(id);
     }
   };
+
+  const findDoctorName = (apt : ShiftCast) : String =>{
+
+    const medic : MedicSpecialist[]= specialists.filter(m => m.id === apt.medicSpecialistId);
+    return medic[0].name;
+  }
 
   if (loading) {
     return <CircularProgress />;
@@ -47,11 +58,15 @@ const AppointmentsMenu: React.FC = () => {
             <TableBody>
                 {appointments.map((apt) => 
                     <TableRow key={apt.id}>
+                      
                         {/* <TableCell>{apt.id}</TableCell> */}
                         <TableCell>{apt.pacientName}</TableCell>
-                        <TableCell>{dayjs(apt.date).format('DD/MM/YYYY')}</TableCell>
+                        <TableCell>{dayjs(apt.shiftDate).format('DD/MM/YYYY')}</TableCell>
                         <TableCell>{dayjs(apt.startTime).format("h")}</TableCell>
                         <TableCell>{dayjs(apt.endTime).format("h")}</TableCell>
+                        <TableCell>{apt.consultation}</TableCell>
+                        <TableCell>{findDoctorName(apt)}</TableCell>
+                        {/* <TableCell>{apt.consultation}</TableCell> */}
                         {/* <TableCell>{apt.pacientName}</TableCell> */}
                         {/* <TableCell>{apt.date?.format('YYYY-MM-DD')}</TableCell>
                         <TableCell>{apt.startTime?.format('HH:mm')}</TableCell>
@@ -59,8 +74,6 @@ const AppointmentsMenu: React.FC = () => {
                         {/* <TableCell>{apt.consultation}</TableCell>
                         <TableCell>{apt.state}</TableCell>
                         <TableCell>{apt.medicSpecialist.name}</TableCell> */}
-                        <TableCell></TableCell>
-                        <TableCell></TableCell>
                         <TableCell>
                             <Button variant="contained" color="primary" onClick={() => handleEdit(apt)}>
                             Editar

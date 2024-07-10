@@ -9,6 +9,7 @@ import Footer from "../components/Footer";
 import Header from "../components/Header";
 import Profile from "../pages/Profile";
 import MedicAppointments from "../pages/MedicAppointments";
+import AppointmentsMenu from "../pages/AppointmentsMenu";
 
 function RouterSelector() {
   return (
@@ -19,6 +20,7 @@ function RouterSelector() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/agendar-turno" element={<CreateAppointmentForm />} />
+        <Route path="/lista-turnos" element = {<AppointmentsMenu/>}/>
         <Route path="/actualizar-turno" element={<UpdateAppointmentPage appointmentId={0} />} />
         <Route path="/especialistas-medicos" element={<MedicSpecialists />} />
         <Route path="/perfil" element={<Profile />} />
