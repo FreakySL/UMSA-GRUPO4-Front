@@ -1,7 +1,6 @@
-import { Appointment } from "./Appointment";
-
-export interface Recipes {
-    date : Date;
-    description : string;
-    appointment : Appointment
-}
+export interface Recipe {
+    id: number;
+    date: string;
+    description: string;
+    shiftId: number;
+  }

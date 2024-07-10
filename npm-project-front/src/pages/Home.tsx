@@ -1,10 +1,12 @@
-// Home.tsx
 import React from "react";
 import { Box, Container, Typography, Grid } from "@mui/material";
-import logo from '../assets/images/AlMedinLogo.webp';
+import logo from '../assets/images/AlMedinLogo.png';
 import Carousel from "../components/Carousel";
+import { useAlMedin } from "../context/AlMedinContext";
 
 const Home: React.FC = () => {
+  const { currentUser } = useAlMedin();
+
   return (
     <Container maxWidth="lg" sx={{ color: '#040A1A', pt: 8 }}>
       <Box>

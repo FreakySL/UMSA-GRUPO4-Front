@@ -19,7 +19,7 @@ const Register: React.FC = () => {
       await updateProfile(userCredential.user, {
         displayName: `${firstName} ${lastName}`
       });
-      navigate('/login');
+      navigate('/');
     } catch (error) {
       setError("El email ya está en uso");
     }
