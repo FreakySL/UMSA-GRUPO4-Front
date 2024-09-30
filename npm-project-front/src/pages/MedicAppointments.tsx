@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { Container, Typography, Card, CardContent, CircularProgress, Grid, List, ListItem, ListItemText, Button, Dialog, DialogTitle, DialogContent, DialogActions, Box, Snackbar, Alert } from '@mui/material';
+import { Container, Typography, Card, CardContent, CircularProgress, Grid, List, ListItem, ListItemText, Button, Dialog, DialogTitle, DialogContent, DialogActions, Box, Snackbar, Alert, TextField } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import useFetchShifts from '../hooks/useFetchShifts';
 import { updateShiftState } from '../api/shiftService';
+import { createRecipe } from '../api/recipeService'; // Assuming the path is correct
+import { NewRecipe } from '../models/NewRecipe';
 
 const MedicAppointments: React.FC = () => {
   const { medicSpecialistId } = useParams<{ medicSpecialistId: string }>();
@@ -10,6 +12,7 @@ const MedicAppointments: React.FC = () => {
   const [selectedShift, setSelectedShift] = useState<null | number>(null);
   const [confirmDialog, setConfirmDialog] = useState<{ open: boolean, action: string, shiftId: number | null }>({ open: false, action: '', shiftId: null });
   const [snackbar, setSnackbar] = useState<{ open: boolean, message: string, severity: 'success' | 'error' }>({ open: false, message: '', severity: 'success' });
+  const [recipeDialog, setRecipeDialog] = useState<{ open: boolean, description: string, shiftId: number | null }>({ open: false, description: '', shiftId: null });
 
   const handleCloseShift = async (shiftId: number) => {
     setConfirmDialog({ open: true, action: 'close', shiftId });
@@ -20,7 +23,7 @@ const MedicAppointments: React.FC = () => {
   };
 
   const handleAddRecipe = (shiftId: number) => {
-    // Lógica para añadir una receta
+    setRecipeDialog({ open: true, description: '', shiftId });
   };
 
   const handleViewRecipes = (shiftId: number) => {
@@ -46,6 +49,24 @@ const MedicAppointments: React.FC = () => {
       } catch (error) {
         console.error(`Error ${confirmDialog.action}ing shift:`, error);
         setSnackbar({ open: true, message: `Error al ${confirmDialog.action === 'close' ? 'cerrar' : 'cancelar'} el turno`, severity: 'error' });
+      }
+    }
+  };
+
+  const handleRecipeSubmit = async () => {
+    if (recipeDialog.shiftId) {
+      const newRecipe: NewRecipe = {
+        description: recipeDialog.description,
+        shiftId: recipeDialog.shiftId,
+      };
+      try {
+        await createRecipe(newRecipe);
+        setRecipeDialog({ open: false, description: '', shiftId: null });
+        refetch();
+        setSnackbar({ open: true, message: '¡La receta se ha añadido exitosamente!', severity: 'success' });
+      } catch (error) {
+        console.error('Error adding recipe:', error);
+        setSnackbar({ open: true, message: 'Error al añadir la receta', severity: 'error' });
       }
     }
   };
@@ -139,6 +160,26 @@ const MedicAppointments: React.FC = () => {
           </Button>
           <Button onClick={confirmAction} color="primary">
             Sí
+          </Button>
+        </DialogActions>
+      </Dialog>
+      <Dialog open={recipeDialog.open} onClose={() => setRecipeDialog({ open: false, description: '', shiftId: null })}>
+        <DialogTitle>Añadir Receta</DialogTitle>
+        <DialogContent>
+          <TextField
+            label="Descripción"
+            fullWidth
+            value={recipeDialog.description}
+            onChange={(e) => setRecipeDialog({ ...recipeDialog, description: e.target.value })}
+            margin="normal"
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setRecipeDialog({ open: false, description: '', shiftId: null })} color="primary">
+            Cancelar
+          </Button>
+          <Button onClick={handleRecipeSubmit} color="primary">
+            Añadir
           </Button>
         </DialogActions>
       </Dialog>
